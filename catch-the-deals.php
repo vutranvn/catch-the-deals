@@ -137,5 +137,10 @@ function add_script_catch_the_deals() {
     wp_enqueue_script( 'var_ajax_url' );
 }
 
-
+/*
+ * Do list:
+ * - Fixed show custom taxonomy term deal
+ * - Transfer data json to tinymce
+ * - function search, add deals
+ */
 
