@@ -167,11 +167,12 @@ add_filter( 'manage_edit-deal_columns', 'column_table_taxonomy_deal' );
 
 function column_table_taxonomy_deal( $columns ) {
     $new_columns = array(
-        'cb'    =>  '<input type="checkbox" />',
-        'name'  =>  __( 'Name', 'hotdealblog' ),
-        'deal_ID'    =>  __( 'ID', 'hotdealblog'),
-        'url'    =>  __( 'Url', 'hotdealblog')
+        'cb'        =>  '<input type="checkbox" />',
+        'name'      =>  __( 'Name', 'hotdealblog' ),
+        'deal_ID'   =>  __( 'ID', 'hotdealblog'),
+        'deal_url'  =>  __( 'Url', 'hotdealblog')
     );
+
     return $new_columns;
 }
 
@@ -182,13 +183,13 @@ function column_table_taxonomy_deal( $columns ) {
 add_action( 'manage_deal_custom_column', 'data_table_taxonomy_deal', 10, 3 );
 
 function data_table_taxonomy_deal( $output, $column_name, $id ) {
-    $term_name = get_term( $id, 'deal' );
+    $term_meta = get_option( "taxonomy_$id" );
     switch ($column_name) {
         case 'deal_ID':
-            $output .= maybe_unserialize( $term_name->deal_ID );
+            $output .= maybe_unserialize( $term_meta['deal_ID'] );
             break;
-        case 'url_address':
-            $output .= maybe_unserialize( $term_name->url_address );
+        case 'deal_url':
+            $output .= maybe_unserialize( $term_meta['url_address'] );
             break;
 
         default:
@@ -198,7 +199,7 @@ function data_table_taxonomy_deal( $output, $column_name, $id ) {
     return $output;
 }
 
-add_action( 'init', 'test_func' );
+//add_action( 'init', 'test_func' );
 
 function test_func() {
     echo "<pre>";
