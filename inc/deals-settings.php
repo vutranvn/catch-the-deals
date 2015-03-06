@@ -202,7 +202,7 @@ function data_table_taxonomy_deal( $output, $column_name, $id ) {
 //add_action( 'init', 'test_func' );
 
 function test_func() {
-    echo "<pre>";
+    /*echo "<pre>";
     print_r( $term = get_term( 307, 'deal' ) );
     echo "</pre>";
 
@@ -212,7 +212,21 @@ function test_func() {
     print_r($presenter_custom_fields);
     echo "</pre>";
 
-    //$presenter_data = get_userdata( $presenter_custom_fields[presenter_id] );
+    $presenter_data = get_userdata( $presenter_custom_fields[presenter_id] );*/
+
+    $deals = get_terms(array('deal'), array('hide_empty' => false));
+    $deals_data = array();
+    foreach( $deals as $deal ) {
+        $deal = (array)$deal;
+        $deal_meta = get_option( 'taxonomy_' . $deal['term_id'] );
+
+        $deals_data[$deal['term_id']] = $deal;
+        $deals_data[$deal['term_id']]['deal_url'] = $deal_meta['url_address'];
+        $deals_data[$deal['term_id']]['deal_ID'] = $deal_meta['deal_ID'];
+    }
+    echo "<pre>";
+    print_r( $deals_data);
+    echo "</pre>";
 }
 
 
@@ -256,8 +270,17 @@ add_action( 'wp_ajax_get_data_deals', 'func_get_data_deals' );
 function func_get_data_deals() {
 
     $deals = get_terms(array('deal'), array('hide_empty' => false));
+    $deals_data = array();
+    foreach( $deals as $deal ) {
+        $deal = (array)$deal;
+        $deal_meta = get_option( 'taxonomy_' . $deal['term_id'] );
 
-    echo json_encode($deals);
+        $deals_data[$deal['term_id']] = $deal;
+        $deals_data[$deal['term_id']]['deal_url'] = $deal_meta['url_address'];
+        $deals_data[$deal['term_id']]['deal_ID'] = $deal_meta['deal_ID'];
+    }
+
+    echo json_encode($deals_data);
 
     exit();
 }
