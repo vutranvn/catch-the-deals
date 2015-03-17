@@ -202,17 +202,6 @@ function data_table_taxonomy_deal( $output, $column_name, $id ) {
 //add_action( 'init', 'test_func' );
 
 function test_func() {
-    /*echo "<pre>";
-    print_r( $term = get_term( 307, 'deal' ) );
-    echo "</pre>";
-
-    $presenter_custom_fields = get_option( $term->term_taxonomy_id );
-
-    echo "<pre>";
-    print_r($presenter_custom_fields);
-    echo "</pre>";
-
-    $presenter_data = get_userdata( $presenter_custom_fields[presenter_id] );*/
 
     $deals = get_terms(array('deal'), array('hide_empty' => false));
     $deals_data = array();

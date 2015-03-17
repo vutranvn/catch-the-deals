@@ -2,13 +2,13 @@
 ( function($) {
 
 	tinymce.PluginManager.add('hotdealblog_button_deal', function( editor, url ) {
-		retrieve_deals_data(function ( data ) {
-			console.log(data);
-		});
 		editor.addButton( 'hotdealblog_button_deal', {
 			text: 'Add Deal',
 			icon: false,
 			onclick: function() {
+                retrieve_deals_data(function ( data ) {
+                    console.log(data);
+                });
 				editor.windowManager.open( {
 					title: 'Insert header tag',
 					width: 600,
